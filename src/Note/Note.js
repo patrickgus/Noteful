@@ -15,7 +15,7 @@ export default function Note(props) {
       <div className="Note__dates">
         <div className="Note__dates-modified">
           Modified{" "}
-          <span className="Date">{format(parseISO(props.modified), "Do MMM yyyy")}</span>
+          <span className="Date">{format(parseISO(props.modified), "do MMM yyyy")}</span>
         </div>
       </div>
     </div>
