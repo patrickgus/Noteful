@@ -30,7 +30,7 @@ exports[`NoteListNav component renders a .NoteListNav by default 1`] = `
       type="button"
     >
       <br />
-      Folder
+      Add Folder
     </NavCircleButton>
   </div>
 </div>

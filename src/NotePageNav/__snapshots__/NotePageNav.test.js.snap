@@ -11,7 +11,7 @@ exports[`NotePageNav component renders a .NotePageNav by default 1`] = `
     tag="button"
   >
     <br />
-    Back
+    Go Back
   </NavCircleButton>
 </div>
 `;

@@ -12,7 +12,7 @@ export default function NotePageNav(props) {
         className="NotePageNav__back-button"
       >
         <br />
-        Back
+        Go Back
       </CircleButton>
       {props.folder && (
         <h3 className="NotePageNav__folder-name">{props.folder.name}</h3>

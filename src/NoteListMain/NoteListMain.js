@@ -22,7 +22,7 @@ export default function NoteListMain(props) {
           className="NoteListMain__add-note-button"
         >
           <br />
-          Note
+          Add Note
         </CircleButton>
       </div>
     </section>

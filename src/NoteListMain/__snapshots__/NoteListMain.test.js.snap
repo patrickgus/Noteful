@@ -28,7 +28,7 @@ exports[`NoteListMain component renders a .NoteListMain by default 1`] = `
       type="button"
     >
       <br />
-      Note
+      Add Note
     </NavCircleButton>
   </div>
 </section>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import "./Note.css";
 
 export default function Note(props) {
@@ -15,7 +15,7 @@ export default function Note(props) {
       <div className="Note__dates">
         <div className="Note__dates-modified">
           Modified{" "}
-          <span className="Date">{format(props.modified, "Do MMM YYYY")}</span>
+          <span className="Date">{format(parseISO(props.modified), "Do MMM yyyy")}</span>
         </div>
       </div>
     </div>
