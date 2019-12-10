@@ -11,7 +11,6 @@ export default function NotePageNav(props) {
         onClick={() => props.history.goBack()}
         className="NotePageNav__back-button"
       >
-        <br />
         Go Back
       </CircleButton>
       {props.folder && (
