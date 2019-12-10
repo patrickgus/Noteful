@@ -35,6 +35,7 @@ exports[`Note component renders the Note given props 1`] = `
   </h2>
   <button
     className="Note__delete"
+    onClick={[Function]}
     type="button"
   >
     remove
