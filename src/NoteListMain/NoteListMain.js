@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Note from "../Note/Note";
 import CircleButton from "../CircleButton/CircleButton";
-import ApiContext from "../ApiContext";
+import Context from "../Context";
 import { getNotesForFolder } from "../notes-helpers";
 import "./NoteListMain.css";
 
@@ -12,7 +12,7 @@ export default class NoteListMain extends React.Component {
       params: {}
     }
   };
-  static contextType = ApiContext;
+  static contextType = Context;
 
   render() {
     const { folderId } = this.props.match.params;

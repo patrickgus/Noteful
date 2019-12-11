@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { format, parseISO } from "date-fns";
-import ApiContext from "../ApiContext";
+import Context from "../Context";
 import config from "../config";
 import "./Note.css";
 
@@ -9,7 +9,7 @@ export default class Note extends React.Component {
   static defaultProps = {
     onDeleteNote: () => {}
   };
-  static contextType = ApiContext;
+  static contextType = Context;
 
   handleClickDelete = e => {
     e.preventDefault();

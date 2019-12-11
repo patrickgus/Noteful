@@ -4,7 +4,7 @@ import NoteListNav from "./NoteListNav/NoteListNav";
 import NotePageNav from "./NotePageNav/NotePageNav";
 import NoteListMain from "./NoteListMain/NoteListMain";
 import NotePageMain from "./NotePageMain/NotePageMain";
-import ApiContext from "./ApiContext";
+import Context from "./Context";
 import config from "./config";
 import "./App.css";
 
@@ -71,7 +71,7 @@ class App extends Component {
       deleteNote: this.handleDeleteNote
     };
     return (
-      <ApiContext.Provider value={value}>
+      <Context.Provider value={value}>
         <div className="App">
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
@@ -81,7 +81,7 @@ class App extends Component {
           </header>
           <main className="App__main">{this.renderMainRoutes()}</main>
         </div>
-      </ApiContext.Provider>
+      </Context.Provider>
     );
   }
 }
