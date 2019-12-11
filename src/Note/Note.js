@@ -4,7 +4,6 @@ import { format, parseISO } from "date-fns";
 import ApiContext from "../ApiContext";
 import config from "../config";
 import "./Note.css";
-import { type } from "os";
 
 export default class Note extends React.Component {
   static defaultProps = {
