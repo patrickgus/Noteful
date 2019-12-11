@@ -4,6 +4,7 @@ import { format, parseISO } from "date-fns";
 import ApiContext from "../ApiContext";
 import config from "../config";
 import "./Note.css";
+import { type } from "os";
 
 export default class Note extends React.Component {
   static defaultProps = {
@@ -52,7 +53,9 @@ export default class Note extends React.Component {
         <div className="Note__dates">
           <div className="Note__dates-modified">
             Modified{" "}
-            <span className="Date">{format(parseISO(modified), "do MMM yyyy")}</span>
+            <span className="Date">
+              {format(parseISO(modified), "do MMM yyyy")}
+            </span>
           </div>
         </div>
       </div>

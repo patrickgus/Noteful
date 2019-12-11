@@ -4,16 +4,13 @@ import toJson from "enzyme-to-json";
 import Note from "./Note";
 
 describe(`Note component`, () => {
+  const newDate = new Date(2018, 12, 15);
+
   const props = {
     id: "a",
     name: "test-class-name",
-    modified: new Date(2018, 12, 15)
+    modified: newDate.toISOString()
   };
-
-  it("renders a .Note by default", () => {
-    const wrapper = shallow(<Note />);
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
 
   it("renders the Note given props", () => {
     const wrapper = shallow(<Note {...props} />);
