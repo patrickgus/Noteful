@@ -4,11 +4,6 @@ import toJson from "enzyme-to-json";
 import NotePageMain from "./NotePageMain";
 
 describe(`NotePageMain component`, () => {
-  it("renders a .NotePageMain by default", () => {
-    const wrapper = shallow(<NotePageMain />);
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
-
   // enzyme doesn't yet support React.createContext
   it.skip("renders a Note with note prop", () => {
     const props = {

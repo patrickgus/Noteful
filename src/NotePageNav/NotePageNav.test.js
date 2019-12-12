@@ -4,10 +4,10 @@ import toJson from "enzyme-to-json";
 import NotePageNav from "./NotePageNav";
 
 describe(`NotePageNav component`, () => {
-  it("renders a .NotePageNav by default", () => {
-    const wrapper = shallow(<NotePageNav />);
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
+  // it("renders a .NotePageNav by default", () => {
+  //   const wrapper = shallow(<NotePageNav />);
+  //   expect(toJson(wrapper)).toMatchSnapshot();
+  // });
 
   // enzyme doesn't support React.createContext
   it.skip("renders a h3 with folder name when in props", () => {

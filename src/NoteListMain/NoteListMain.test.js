@@ -4,11 +4,6 @@ import toJson from "enzyme-to-json";
 import NoteListMain from "./NoteListMain";
 
 describe(`NoteListMain component`, () => {
-  it("renders a .NoteListMain by default", () => {
-    const wrapper = shallow(<NoteListMain />);
-    expect(toJson(wrapper)).toMatchSnapshot();
-  });
-
   // enzyme doesn't yet support React.createContext
   it.skip("renders a Note in ul for each notes in array", () => {
     const props = {
