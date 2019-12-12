@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App/App";
+import ErrorPage from "./ErrorPage/ErrorPage";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <ErrorPage>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ErrorPage>,
   document.getElementById("root")
 );

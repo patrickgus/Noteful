@@ -4,9 +4,11 @@ import NoteListNav from "../NoteListNav/NoteListNav";
 import NotePageNav from "../NotePageNav/NotePageNav";
 import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
-import Context from "../Context";
+import AddFolder from "../AddFolder/AddFolder";
+import AddNote from "../AddNote/AddNote";
 import config from "../config";
 import "./App.css";
+import AppContext from "../Context";
 
 class App extends Component {
   state = {
@@ -15,28 +17,59 @@ class App extends Component {
   };
 
   componentDidMount() {
-    Promise.all([
-      fetch(`${config.API_ENDPOINT}/notes`),
-      fetch(`${config.API_ENDPOINT}/folders`)
-    ])
-      .then(([notesRes, foldersRes]) => {
-        if (!notesRes.ok) return notesRes.json().then(e => Promise.reject(e));
-        if (!foldersRes.ok)
-          return foldersRes.json().then(e => Promise.reject(e));
+    const folderURL = config.API_ENDPOINT + "/folders";
+    const noteURL = config.API_ENDPOINT + "/notes";
 
-        return Promise.all([notesRes.json(), foldersRes.json()]);
+    fetch(folderURL)
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
+        }
+        return res.json();
       })
-      .then(([notes, folders]) => {
-        this.setState({ notes, folders });
+      .then(data =>
+        this.setState({
+          folders: data
+        })
+      )
+      .catch(error => alert(error));
+
+    fetch(noteURL)
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(error => {
+            throw error;
+          });
+        }
+        return res.json();
       })
-      .catch(error => {
-        console.error({ error });
-      });
+      .then(data =>
+        this.setState({
+          notes: data
+        })
+      )
+      .catch(error => alert(error));
   }
 
   handleDeleteNote = noteId => {
+    const newNotes = this.state.notes.filter(note => note.id !== noteId);
+
     this.setState({
-      notes: this.state.notes.filter(note => note.id !== noteId)
+      notes: newNotes
+    });
+  };
+
+  handleAddFolder = newFolder => {
+    this.setState({
+      folders: [...this.state.folders, newFolder]
+    });
+  };
+
+  handleAddNote = addedNote => {
+    this.setState({
+      notes: [...this.state.notes, addedNote]
     });
   };
 
@@ -47,8 +80,8 @@ class App extends Component {
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
         <Route path="/note/:noteId" component={NotePageNav} />
-        <Route path="/add-folder" component={NotePageNav} />
-        <Route path="/add-note" component={NotePageNav} />
+        <Route path="/add-folder" component={NoteListNav} />
+        <Route path="/add-note" component={NoteListNav} />
       </>
     );
   }
@@ -60,18 +93,23 @@ class App extends Component {
           <Route exact key={path} path={path} component={NoteListMain} />
         ))}
         <Route path="/note/:noteId" component={NotePageMain} />
+        <Route path="/add-folder" component={AddFolder} />
+        <Route path="/add-note" component={AddNote} />
       </>
     );
   }
 
   render() {
-    const value = {
-      notes: this.state.notes,
-      folders: this.state.folders,
-      deleteNote: this.handleDeleteNote
-    };
     return (
-      <Context.Provider value={value}>
+      <AppContext.Provider
+        value={{
+          folders: this.state.folders,
+          notes: this.state.notes,
+          deleteNote: this.handleDeleteNote,
+          addFolder: this.handleAddFolder,
+          addNote: this.handleAddNote
+        }}
+      >
         <div className="App">
           <nav className="App__nav">{this.renderNavRoutes()}</nav>
           <header className="App__header">
@@ -81,7 +119,7 @@ class App extends Component {
           </header>
           <main className="App__main">{this.renderMainRoutes()}</main>
         </div>
-      </Context.Provider>
+      </AppContext.Provider>
     );
   }
 }

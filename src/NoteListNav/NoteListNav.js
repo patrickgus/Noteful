@@ -1,15 +1,16 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import CircleButton from "../CircleButton/CircleButton";
-import Context from "../Context";
 import { countNotesForFolder } from "../notes-helpers";
 import "./NoteListNav.css";
+import AppContext from "../Context";
 
 export default class NoteListNav extends React.Component {
-  static contextType = Context;
+  static contextType = AppContext;
 
   render() {
-    const { folders = [], notes = [] } = this.context;
+    const { folders, notes } = this.context;
+
     return (
       <div className="NoteListNav">
         <ul className="NoteListNav__list">

@@ -2,26 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Note from "../Note/Note";
 import CircleButton from "../CircleButton/CircleButton";
-import Context from "../Context";
-import { getNotesForFolder } from "../notes-helpers";
 import "./NoteListMain.css";
+import AppContext from "../Context";
+import { getNotesForFolder } from "../notes-helpers";
 
 export default class NoteListMain extends React.Component {
-  static defaultProps = {
-    match: {
-      params: {}
-    }
-  };
-  static contextType = Context;
+  static contextType = AppContext;
 
   render() {
+    const { notes } = this.context;
     const { folderId } = this.props.match.params;
-    const { notes = [] } = this.context;
     const notesForFolder = getNotesForFolder(notes, folderId);
+    const folderNotes = notesForFolder;
     return (
       <section className="NoteListMain">
         <ul>
-          {notesForFolder.map(note => (
+          {folderNotes.map(note => (
             <li key={note.id}>
               <Note id={note.id} name={note.name} modified={note.modified} />
             </li>

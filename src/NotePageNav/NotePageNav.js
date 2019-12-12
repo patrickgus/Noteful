@@ -1,24 +1,15 @@
 import React from "react";
 import CircleButton from "../CircleButton/CircleButton";
-import Context from "../Context";
-import { findNote, findFolder } from "../notes-helpers";
 import "./NotePageNav.css";
+import { findNote, findFolder } from "../notes-helpers";
+import AppContext from "../Context";
 
 export default class NotePageNav extends React.Component {
-  static defaultProps = {
-    history: {
-      goBack: () => {}
-    },
-    match: {
-      params: {}
-    }
-  };
-  static contextType = Context;
-
+  static contextType = AppContext;
   render() {
-    const { notes, folders } = this.context;
+    const { folders, notes } = this.context;
     const { noteId } = this.props.match.params;
-    const note = findNote(notes, noteId) || {};
+    const note = findNote(notes, noteId);
     const folder = findFolder(folders, note.folderId);
     return (
       <div className="NotePageNav">
