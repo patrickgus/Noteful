@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
-import NoteListNav from "./NoteListNav/NoteListNav";
-import NotePageNav from "./NotePageNav/NotePageNav";
-import NoteListMain from "./NoteListMain/NoteListMain";
-import NotePageMain from "./NotePageMain/NotePageMain";
-import Context from "./Context";
-import config from "./config";
+import NoteListNav from "../NoteListNav/NoteListNav";
+import NotePageNav from "../NotePageNav/NotePageNav";
+import NoteListMain from "../NoteListMain/NoteListMain";
+import NotePageMain from "../NotePageMain/NotePageMain";
+import Context from "../Context";
+import config from "../config";
 import "./App.css";
 
 class App extends Component {
