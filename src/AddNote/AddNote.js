@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import uuidv4 from "uuid/v4";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import ValidationError from "../ValidationError";
 import AppContext from "../Context";
@@ -97,7 +98,9 @@ class AddNote extends Component {
     const newNote = {
       name: this.state.name,
       content: this.state.content,
-      folderId: this.state.folderId
+      folderId: this.state.folderId,
+      modified: (new Date()).toISOString(),
+      id: uuidv4()
     };
 
     fetch("http://localhost:9090/notes", {
