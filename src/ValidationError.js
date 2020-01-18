@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default function ValidationError(props) {
-  if (props.hasError) {
-    return <div className="form-error">{props.message}</div>;
-  } else {
+  if (props.isValid) {
     return <></>;
+  } else {
+    return <div className="form-error">{props.message}</div>;
   }
 }
 
 ValidationError.propTypes = {
-  hasError: PropTypes.bool,
+  isValid: PropTypes.bool,
   message: PropTypes.string
 };

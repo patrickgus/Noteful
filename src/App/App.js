@@ -6,70 +6,56 @@ import NoteListMain from "../NoteListMain/NoteListMain";
 import NotePageMain from "../NotePageMain/NotePageMain";
 import AddFolder from "../AddFolder/AddFolder";
 import AddNote from "../AddNote/AddNote";
-import config from "../config";
-import "./App.css";
 import AppContext from "../Context";
+import "./App.css";
+import NotefulApi from "../NotefulService";
 
 class App extends Component {
   state = {
     notes: [],
-    folders: []
+    folders: [],
+    error: null,
+    notefulApi: new NotefulApi()
   };
 
-  componentDidMount() {
-    const folderURL = config.API_ENDPOINT + "/folders";
-    const noteURL = config.API_ENDPOINT + "/notes";
+  async componentDidMount() {
+    const { notefulApi } = this.state;
 
-    fetch(folderURL)
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(error => {
-            throw error;
-          });
-        }
-        return res.json();
-      })
-      .then(data =>
-        this.setState({
-          folders: data
-        })
-      )
-      .catch(error => alert(error));
+    try {
+      const folders = await notefulApi.getFolders();
+      const notes = await notefulApi.getNotes();
 
-    fetch(noteURL)
-      .then(res => {
-        if (!res.ok) {
-          return res.json().then(error => {
-            throw error;
-          });
-        }
-        return res.json();
-      })
-      .then(data =>
-        this.setState({
-          notes: data
-        })
-      )
-      .catch(error => alert(error));
+      this.setState({
+        folders,
+        notes,
+        error: null
+      });
+    } catch (err) {
+      this.setState({ error: err.message });
+    }
   }
 
-  handleDeleteNote = noteId => {
-    const newNotes = this.state.notes.filter(note => note.id !== noteId);
+  onDeleteNote = noteId => {
+    const { notefulApi } = this.state;
+    return notefulApi.deleteNote(noteId);
+  };
 
+  updateNoteState = noteId => {
+    console.log("note id: ", noteId);
     this.setState({
-      notes: newNotes
+      notes: this.state.notes.filter(note => note.id !== Number(noteId))
     });
   };
 
-  handleAddFolder = newFolder => {
+  addFolder = folder => {
     this.setState({
-      folders: [...this.state.folders, newFolder]
+      folders: [...this.state.folders, folder]
     });
   };
 
-  handleAddNote = addedNote => {
+  addNote = note => {
     this.setState({
-      notes: [...this.state.notes, addedNote]
+      notes: [...this.state.notes, note]
     });
   };
 
@@ -80,8 +66,8 @@ class App extends Component {
           <Route exact key={path} path={path} component={NoteListNav} />
         ))}
         <Route path="/note/:noteId" component={NotePageNav} />
-        <Route path="/add-folder" component={NoteListNav} />
-        <Route path="/add-note" component={NoteListNav} />
+        <Route path="/add-folder" component={NotePageNav} />
+        <Route path="/add-note" component={NotePageNav} />
       </>
     );
   }
@@ -105,9 +91,10 @@ class App extends Component {
         value={{
           folders: this.state.folders,
           notes: this.state.notes,
-          deleteNote: this.handleDeleteNote,
-          addFolder: this.handleAddFolder,
-          addNote: this.handleAddNote
+          onDeleteNote: this.onDeleteNote,
+          updateNoteState: this.updateNoteState,
+          addFolder: this.addFolder,
+          addNote: this.addNote
         }}
       >
         <div className="App">

@@ -10,23 +10,31 @@ export default class NoteListMain extends React.Component {
   static contextType = AppContext;
 
   render() {
-    const { notes } = this.context;
     const { folderId } = this.props.match.params;
-    const notesForFolder = getNotesForFolder(notes, folderId);
-    const folderNotes = notesForFolder;
+    const notesForFolder = getNotesForFolder(this.context.notes, folderId);
+
     return (
       <section className="NoteListMain">
         <ul>
-          {folderNotes.map(note => (
+          {notesForFolder.map(note => (
             <li key={note.id}>
-              <Note id={note.id} name={note.name} modified={note.modified} />
+              <Note
+                match={this.props.match}
+                id={note.id}
+                name={note.name}
+                modified={note.modified}
+              />
             </li>
           ))}
         </ul>
         <div className="NoteListMain__button-container">
           <CircleButton
             tag={Link}
-            to="/add-note"
+            to={
+              this.props.match.params.folderId
+                ? `/add-note?folderId=${this.props.match.params.folderId}`
+                : "/add-note"
+            }
             type="button"
             className="NoteListMain__add-note-button"
           >
@@ -37,3 +45,7 @@ export default class NoteListMain extends React.Component {
     );
   }
 }
+
+NoteListMain.defaultProps = {
+  notes: []
+};

@@ -2,25 +2,19 @@ import React from "react";
 import "./ErrorPage.css";
 
 export default class ErrorPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasError: false
-    };
-  }
-
+  state = { error: null };
   static getDerivedStateFromError(error) {
-    return { hasError: true };
+    return { error };
   }
-
   render() {
-    if (this.state.hasError) {
+    if (this.state.error) {
       return (
-        <div className="errorPage">
-          <h2 className="errorMessage">
-            Something went wrong. Please try again later.
-          </h2>
-        </div>
+        <main className="error-page">
+          <div>
+            <h1>Something seems to have gone wrong</h1>
+            <p>Try refreshing the page</p>
+          </div>
+        </main>
       );
     }
     return this.props.children;

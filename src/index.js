@@ -5,6 +5,8 @@ import "./index.css";
 import App from "./App/App";
 import ErrorPage from "./ErrorPage/ErrorPage";
 
+require("dotenv").config();
+
 ReactDOM.render(
   <ErrorPage>
     <BrowserRouter>

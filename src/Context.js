@@ -3,7 +3,8 @@ import React from "react";
 const AppContext = React.createContext({
   folders: [],
   notes: [],
-  deleteNote: () => {},
+  onDeleteNote: () => {},
+  updateNoteState: () => {},
   addFolder: () => {},
   addNote: () => {}
 });

@@ -6,11 +6,12 @@ import AppContext from "../Context";
 
 export default class NotePageNav extends React.Component {
   static contextType = AppContext;
+
   render() {
-    const { folders, notes } = this.context;
     const { noteId } = this.props.match.params;
-    const note = findNote(notes, noteId);
-    const folder = findFolder(folders, note.folderId);
+    const note = findNote(this.context.notes, noteId) || {};
+    const folder = findFolder(this.context.folders, note.folderId);
+
     return (
       <div className="NotePageNav">
         <CircleButton
@@ -26,3 +27,9 @@ export default class NotePageNav extends React.Component {
     );
   }
 }
+
+NotePageNav.defaultProps = {
+  history: {
+    goBack: () => {}
+  }
+};
