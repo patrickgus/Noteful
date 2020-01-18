@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import uuidv4 from "uuid/v4";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import ValidationError from "../ValidationError";
 import AppContext from "../Context";
+import config from "../config";
 import "./AddNote.css";
 
 class AddNote extends Component {
@@ -98,12 +98,10 @@ class AddNote extends Component {
     const newNote = {
       name: this.state.name,
       content: this.state.content,
-      folderId: this.state.folderId,
-      modified: (new Date()).toISOString(),
-      id: uuidv4()
+      folder_id: this.state.folderId
     };
 
-    fetch("http://localhost:9090/notes", {
+    fetch(config.API_ENDPOINT + "/notes", {
       method: "POST",
       headers: {
         "content-type": "application/json"

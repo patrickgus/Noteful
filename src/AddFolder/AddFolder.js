@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NotefulForm from "../NotefulForm/NotefulForm";
 import { withRouter } from "react-router-dom";
 import "./AddFolder.css";
+import config from "../config";
 import AppContext from "../Context";
 import ValidationError from "../ValidationError";
 
@@ -62,7 +63,7 @@ class AddFolder extends Component {
       name: this.state.name
     };
 
-    fetch("http://localhost:9090/folders", {
+    fetch(config.API_ENDPOINT + "/folders", {
       method: "POST",
       headers: {
         "content-type": "application/json"

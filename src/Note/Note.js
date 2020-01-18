@@ -2,11 +2,12 @@ import React from "react";
 import { withRouter, Link } from "react-router-dom";
 import { format, parseISO } from "date-fns";
 import "./Note.css";
+import config from "../config";
 import AppContext from "../Context";
 import PropTypes from "prop-types";
 
 function deleteNoteRequest(noteId, callback) {
-  const deleteURL = `http://localhost:9090/notes/${noteId}`;
+  const deleteURL = config.API_ENDPOINT + `/notes/${noteId}`;
 
   fetch(deleteURL, {
     method: "DELETE",
@@ -63,7 +64,7 @@ class Note extends React.Component {
 }
 
 Note.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   modified: PropTypes.string
 };
